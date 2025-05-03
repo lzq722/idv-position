@@ -30,7 +30,7 @@
     <img
       v-if="value"
       ref="mapImg"
-      :src="`/maps/${value}.png`"
+      :src="`/idv-position/maps/${value}.png`"
       style="width: 90%; cursor: crosshair;"
       @click="searchposition"
     >
@@ -38,7 +38,7 @@
   <div v-if="!value" style="margin-top: 20px;">
       <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap;">
         <div v-for="option in options" :key="option.value" style="width: 30%; height: auto; margin-right: 10px; margin-bottom: 10px; cursor: pointer;" @click="value = option.value">
-          <img :src="`/maps/${option.value}.png`" :alt="option.label" style="width: 100%; height: auto;">
+          <img :src="`/idv-position/maps/${option.value}.png`" :alt="option.label" style="width: 100%; height: auto;">
           <p style="text-align: center;">{{ option.label }}</p>
         </div>
       </div>
@@ -50,8 +50,8 @@
         <img
           v-for="match in positionid.matched"
           :key="match"
-          :src="`/mapwithposition/${value}-${match}.png`"
-          alt="Matched Image"
+          :src="`/idv-position/mapwithposition/${value}-${match}.png`"
+          alt="选点图"
           style="width: 30%; height: auto; margin-right: 10px; margin-bottom: 10px;"
         >
       </div>
