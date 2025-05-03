@@ -43,12 +43,12 @@
         </div>
       </div>
   </div>
-  <div v-if="positionid" style="margin-top: 20px;">
+  <div v-if="matched" style="margin-top: 20px;">
     <el-card>
       <h3>刷点情况</h3>
       <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap;">
         <img
-          v-for="match in positionid.matched"
+            v-for="match in matched"
           :key="match"
           :src="`/idv-position/mapwithposition/${value}-${match}.png`"
           alt="选点图"
@@ -60,10 +60,21 @@
 </template>
 
 <script setup lang="ts">
+import position1 from 'public/positions/1.json'
+import position2 from 'public/positions/2.json'
+import position3 from 'public/positions/3.json'
+import position4 from 'public/positions/4.json'
+import position5 from 'public/positions/5.json'
+import position6 from 'public/positions/6.json'
+import position7 from 'public/positions/7.json'
+import position8 from 'public/positions/8.json'
+import position9 from 'public/positions/9.json'
+
 const value = ref('')
 const value2 = ref('1')
-const positionid = ref('')
 const mapImg = ref<HTMLImageElement | null>(null)
+const matched = ref<number[]>([])
+let position;
 const camp = [
   {
     value: '1',
@@ -113,6 +124,25 @@ const options = [
   },
 ]
 const searchposition = async (event: MouseEvent) => {
+  if (value.value === '1') {
+      position = position1;
+  } else if (value.value === '2') {
+      position = position2;
+  } else if (value.value === '3') {
+      position = position3;
+  } else if (value.value === '4') {
+      position = position4;
+  } else if (value.value === '5') {
+      position = position5;
+  } else if (value.value === '6') {
+      position = position6;
+  } else if (value.value === '7') {
+      position = position7;
+  } else if (value.value === '8') {
+      position = position8;
+  } else if (value.value === '9') {
+      position = position9;
+  }
   if (!mapImg.value) return
 
   const rect = mapImg.value.getBoundingClientRect()
@@ -124,19 +154,53 @@ const searchposition = async (event: MouseEvent) => {
   const percentY = relativeY / rect.height * 10000
 
   if (value2.value === '1') {
-    positionid.value = await $fetch("/api/match",{
-      method: 'post',
-      body: {xposition: percentX, yposition: percentY, mapid: value.value}
-    })
+    matched.value = getPosition(position, percentX, percentY);
+
   } else if (value2.value === '2') {
-    positionid.value = await $fetch("/api/match2",{
-      method: 'post',
-      body: {xposition: percentX, yposition: percentY, mapid: value.value}
-    })
+    matched.value = getPosition2(position, percentX, percentY);
+    
   }
 
-  console.log(`点击坐标: x=${percentX}, y=${percentY}`)
-  console.log(positionid.value.matched)
+  // console.log(`点击坐标: x=${percentX}, y=${percentY}`)
+  // console.log(matched.value)
+}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function getPosition(position: any, xposition: number, yposition: number): number[] {
+    const matchedGroups: number[] = []
+    for (const key in position) {
+        const points = position[key]
+        if (!points || points.length < 4) continue
+        for (let j = 0; j < 4; j++) {
+            const point = points[j]
+            const dx = point.x - xposition
+            const dy = point.y - yposition
+            const distance = Math.sqrt(dx * dx + dy * dy)
+            if (distance < 900) {
+                const groupNumber = parseInt(key.replace('position', ''), 10)
+                matchedGroups.push(groupNumber)
+                break
+            }
+        }
+    }
+    return matchedGroups
+}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function getPosition2(position: any, xposition: number, yposition: number): number[] {
+    const matchedGroups: number[] = []
+
+    for (const key in position) {
+        const points = position[key]
+        const point = points[4]
+        const dx = point.x - xposition
+        const dy = point.y - yposition
+        const distance = Math.sqrt(dx * dx + dy * dy)
+        if (distance < 900) {
+            const groupNumber = parseInt(key.replace('position', ''), 10)
+            matchedGroups.push(groupNumber)
+            break
+        }
+    }
+    return matchedGroups
 }
 </script>
 
