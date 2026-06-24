@@ -1,5 +1,8 @@
 <!-- eslint-disable vue/no-multiple-template-root -->
 <template>
+  <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+    <el-button @click="toMap">加页手记</el-button>
+  </div>
   <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 30px;">
     <el-select
       v-model="value"
@@ -74,7 +77,13 @@ const value = ref('')
 const value2 = ref('1')
 const mapImg = ref<HTMLImageElement | null>(null)
 const matched = ref<number[]>([])
-let position;
+const router = useRouter();
+let position: unknown;
+
+function toMap() {
+  router.push('/map');
+}
+
 const camp = [
   {
     value: '1',
