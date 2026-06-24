@@ -48,7 +48,7 @@
   </div>
   <div v-if="matched" style="margin-top: 20px;">
     <el-card>
-      <h3>刷点情况</h3>
+      <h3>刷点</h3>
       <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap;">
         <img
             v-for="match in matched"
