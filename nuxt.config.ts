@@ -81,10 +81,10 @@ export default defineNuxtConfig({
   vite: {
     css: {
       preprocessorOptions: {
-        scss: {
-          api: 'modern-compiler',
-          additionalData: `@use "@/assets/scss/element/index.scss" as element;`,
-        },
+        // scss: {
+        //   api: 'modern-compiler',
+        //   additionalData: `@use "@/assets/scss/element/index.scss" as element;`,
+        // },
       },
     },
   },
