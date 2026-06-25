@@ -63,15 +63,15 @@
 </template>
 
 <script setup lang="ts">
-import position1 from '/idv-position/positions/1.json'
-import position2 from '/idv-position/positions/2.json'
-import position3 from '/idv-position/positions/3.json'
-import position4 from '/idv-position/positions/4.json'
-import position5 from '/idv-position/positions/5.json'
-import position6 from '/idv-position/positions/6.json'
-import position7 from '/idv-position/positions/7.json'
-import position8 from '/idv-position/positions/8.json'
-import position9 from '/idv-position/positions/9.json'
+import position1 from './positions/1.json'
+import position2 from './positions/2.json'
+import position3 from './positions/3.json'
+import position4 from './positions/4.json'
+import position5 from './positions/5.json'
+import position6 from './positions/6.json'
+import position7 from './positions/7.json'
+import position8 from './positions/8.json'
+import position9 from './positions/9.json'
 
 const value = ref('')
 const value2 = ref('1')
